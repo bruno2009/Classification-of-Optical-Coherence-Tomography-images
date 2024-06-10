@@ -1,0 +1,222 @@
+Basic Gray-Level Distribution Statistics (GLDS):
+# features, labels = pyfeats.glds_features(f, mask, Dx=[0,1,1,1], Dy=[1,1,0,-1])
+    Parameters:
+        Dx : Array with X-coordinates of vectors denoting orientation. The default is [0, 1, 1, 1].
+        Dy : int, optional Array with Y-coordinates of vectors denoting orientation. The default is [1, 1, 0, -1].
+    features: 
+        1) homogeneity  
+        2) contrast 
+        3) energy 
+        4) entropy 
+        5) mean
+
+------------------------------------------------------------------------------------------------
+Statistical Feature Matrix (SFM):
+    Parameters:
+        Lr : Parameters of SFM. The default is 4. 
+        Lc : Parameters of SFM. The default is 4.
+    features:
+        1) coarseness
+        2) contrast
+        3) periodicity
+        4) roughness
+    
+    ''' Obs.: (Lr, Lr) represent the intersample spacing distance vector '''
+
+------------------------------------------------------------------------------------------------
+Eigenvectors: PCA?
+
+------------------------------------------------------------------------------------------------
+Histogram Analysis (First-order statistics (FOS) or Statistical Features (SF)):
+    Parameters: --- 
+    features:
+        1) mean 
+        2) standard deviation
+        3) median
+        4) mode
+        5) skewnewss
+        6) kurtosis
+        7) energy
+        8) entropy
+        9) minimal gray level
+        10) maximal gray leve
+        11) coefficient of variation
+        12) 13) 14) 15) percentiles (10, 25, 50, 75, 90)
+        16) histogram width
+
+------------------------------------------------------------------------------------------------
+Gray Level Co-ocurrence Matrix (GLCM):
+    Parameters:
+        ignore_zeros : Ignore zeros in image f. The default is True.
+    features: 
+        1) angular second moment (Energy)
+        2) contrast
+        3) correlation
+        4) sum of squares: variance
+        5) inverse difference moment (or Homogeneity) (2nd order metrics) (it will depend on the formula we choose, only one is available at once.)
+        6) sum average
+        7) sum variance
+        8) sum entropy
+        9) entropy
+        10) difference variance
+        11) difference entropy
+        12) 13) information measures of correlation.
+
+------------------------------------------------------------------------------------------------
+Histogram of Oriented Gradients (HOG):
+    Parameters:
+        ppc : Pixels per cell. The default is 8
+        cpb : Cells per block. The default is 3
+
+------------------------------------------------------------------------------------------------
+Gabor filters:
+    Parameters:
+        deg:  Quantized degrees. The default is 4 (0, 45, 90, 135 degrees)
+        freq: frequency of the gabor kernel. The default is [0.05, 0.4]
+    Features:
+        1) mean
+        2) standard deviation of the absolute value of detail sub-images of the GT of the image
+
+    ''' Obs.: According to the literature, the central frequency is selected according to the image dimension. 
+    Low frequency corresponds to smooth variations and constitutes the base of an image 
+    while high frequency presents the edge information which gives the detailed information in the image. '''
+
+------------------------------------------------------------------------------------------------
+Local Binary Patterns:
+    Parameters: 
+        P : Number of points in neighborhood. The default is [8, 16, 24].
+        R : Radius/Radii. The default is [1, 2, 3].
+    Features: 
+        1) Energy and 2) entropy of LBP image (2 x 1).
+
+------------------------------------------------------------------------------------------------
+LAWS filters:
+    Parameters:
+    l : Law's mask size. The default is 7.
+    Features: 
+        1) LL- texture energy from LL kernel
+        2) EE- texture energy from EE kernel
+        3) SS- texture energy from SS kernel
+        4) LE- average texture energy from LE and EL kernels 𝐿𝐸 = ( 𝐿𝐸 + 𝐸𝐿 ) / 2
+        5) ES- average texture energy from ES and SE kernels 𝐸𝑆 = ( 𝐸𝑆 + 𝑆𝐸 ) / 2
+        6) LS- average texture energy from LS and SL kernels 𝐿𝑆 = ( 𝐿𝑆 + 𝑆𝐿 ) / 2
+
+------------------------------------------------------------------------------------------------
+Fractal Analysis:
+    Parameters:
+        s : max resolution to calculate Hurst coefficients. The default is 3
+    Features:
+        1) Hurst coefficients
+
+    ''' Obs.: One of the most important parameters to represent a fractal surface is the fractal dimension. 
+    A simpler method is to estimate the H parameter (Hurst coefficient). 
+    If the image is seen under different resolutions, 
+    then the multiresolution fractal (MF) feature vector is obtained. '''
+
+------------------------------------------------------------------------------------------------
+Gray Level Run Length - Matrix (GLRLM) or Image Statistics (GLRLIS):
+    Parameters:
+        Ng : Image number of gray values. The default is 256.
+    Features:
+        1) short run emphasis
+        2) long run emphasis
+        3) gray level non-uniformity
+        4) run length non-uniformity
+        5) run percentage
+        6) low gray level run emphasis
+        7) high gray level run emphasis
+        8) short low gray level emphasis
+        9) short run high gray level emphasis
+        10) long run low gray level emphasis
+        11) long run high level emphasis
+
+------------------------------------------------------------------------------------------------
+Gray Level Size Zone Matrix (GLSZM)
+    Parameters: 
+    Features:
+        1) small zone emphasis
+        2) large zone emphasis
+        3) gray level non-uniformity
+        4) zone-size non-uniformity
+        5) zone percentage
+        6) low gray level zone emphasis
+        7) high gray level zone emphasis
+        8) small zone low gray level emphasis
+        9) small zone high gray level emphasis
+        10) large zone low gray level emphasis
+        11) large zone high gray level emphasis
+        12 gray level variance
+        13) zone-size variance
+        14) zone-size entropy
+    
+    ''' Obs.: Gray Level Size Zone Matrix (GLSZM) quantifies gray level zones in an image. 
+    A gray level zone is defined as the number of connected voxels that share the same gray level intensity. 
+    A voxel is considered connected if the distance is 1 according to the infinity norm 
+    (26-connected region in a 3D, 8-connected region in 2D). '''
+
+------------------------------------------------------------------------------------------------
+Amplitude Modulation – Frequency Modulation (AM-FM): 
+    Parameters: 
+        bins: Bins for the calculated histogram. The default is 32.
+    Features:
+        Histogram of the: 
+        1) low
+        2) medium
+        3) high 
+        4) dc reconstructed images.
+
+    ''' Obs.: We consider multi-scale Amplitude Modulation – Frequency Modulation (AM-FM) representations, 
+    under least-square approximations, for images. For each image an instantaneous amplitude (IA), 
+    an the instantaneous phase (IP) and an instantaneous frequency (IF) is calculated for a specific component. 
+    Given the input discrete image, we first apply the Hilbert transform to form a 2D extension of the 1D analytic signal. 
+    The result is processed through a collection of bandpass filters with the desired scale. 
+    Each processing block will produce the IA, the IP and the IF. '''
+
+------------------------------------------------------------------------------------------------
+Discrete Wavelet Transform (DWT): 
+    Parameters:
+        wavelet : Filter to be used. Check pywt for filter families. The default is 'bior3.3'
+        levels :  Levels of decomposition. Default is 3.
+    Features:
+        1) mean and 2) standard deviation of the absolute value of detail sub-images of the DWT.
+
+    '''  Pywt for filter families:  
+    Haar (haar)
+    Daubechies (db)
+    Symlets (sym)
+    Coiflets (coif)
+    Biorthogonal (bior)
+    Reverse biorthogonal (rbio)
+    'Discrete' FIR approximation of Meyer wavelet (dmey)
+    Gaussian wavelets (gaus)
+    Mexican hat wavelet (mexh)
+    Morlet wavelet (morl)
+    Complex Gaussian wavelets (cgau)
+    Shannon wavelets (shan)
+    Frequency B-Spline wavelets (fbsp)
+    Complex Morlet wavelets (cmor) '''
+
+------------------------------------------------------------------------------------------------
+Shape Parameters:
+    Parameters:
+        perimeter : Image N1 x N2 with 1 if pixels belongs to perimeter of ROI, 0 else.
+        pixels_per_mm2 : Density of image f. The default is 1.
+    Features:
+        1) x-coordinate maximum length
+        2) y-coordinate maximum length
+        3) area
+        4) perimeter
+        5) perimeter2/area
+
+------------------------------------------------------------------------------------------------
+Gray-scale Morphological Analysis:
+    Parameters:
+        N : Maximum number of scales. The default is 30.
+    Features:
+        1) mean cumulative distribution functions (CDF) and 
+        2) mean probability density functions (PDF) of the pattern spectra using the cross '+' as a structural element of the grayscale image.
+
+------------------------------------------------------------------------------------------------
+among others.
+    Parameters: 
+    Features: 
